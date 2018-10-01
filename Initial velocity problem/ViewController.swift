@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        //Turn On Debugging/
+        //Turn On Debugging
         isDebuggingEnabled = true
         
         main.layer.cornerRadius = 20
@@ -72,8 +72,8 @@ class ViewController: UIViewController {
             
             //Create Relative Velocity Vector
             let velocity = CGVector(
-                dx: relativeVelocity(forVelocity: recognizer.velocity(in: view).x, from: translation.x, to: -translation.x),
-                dy: relativeVelocity(forVelocity: recognizer.velocity(in: view).y, from: translation.y, to: -translation.x)
+                dx: relativeVelocity(forVelocity: recognizer.velocity(in: view).x, from: translation.x, to: 0),
+                dy: relativeVelocity(forVelocity: recognizer.velocity(in: view).y, from: translation.y, to: 0)
             )
             
             let springParameters = UISpringTimingParameters(damping: CGFloat(dampingSlider!.value), response: CGFloat(responseSlider!.value), initialVelocity: velocity)
