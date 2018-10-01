@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var responseSlider: UISlider!
     @IBOutlet weak var dampingSlider: UISlider!
+    @IBOutlet weak var velocityLabel: UILabel!
     
     private var isDebuggingEnabled = false
     
@@ -55,6 +56,13 @@ class ViewController: UIViewController {
         
     }
     
+    var dotView = UIView()
+    func removeDot() {
+        for subview in view.subviews {
+            if subview.tag == 9 { subview.removeFromSuperview() }
+        }
+    }
+    
     //MARK: - Pan Handler
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
         
@@ -62,13 +70,30 @@ class ViewController: UIViewController {
         
         switch recognizer.state {
         case .began:
+            removeDot()
+            //Create Dot
+            dotView = UIView(frame: CGRect(x: recognizer.location(in: view).x, y: recognizer.location(in: view).y, width: 20, height: 20))
+            dotView.frame.origin = CGPoint(x: dotView.frame.origin.x - dotView.frame.width / 2, y: dotView.frame.origin.y - dotView.frame.height / 2)
+            dotView.backgroundColor = .black
+            dotView.layer.cornerRadius = dotView.frame.height / 2
+            //Add Tag To Register It
+            dotView.tag = 9
+            view.addSubview(dotView)
             return
         case .changed:
+            //Add Dot To Touch Location
+            dotView.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
             //Change View's Transform
             main.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+            
+            let velocity = CGVector(
+                dx: relativeVelocity(forVelocity: recognizer.velocity(in: view).x, from: translation.x, to: 0),
+                dy: relativeVelocity(forVelocity: recognizer.velocity(in: view).y, from: translation.y, to: 0)
+            )
+            velocityLabel.text = "Velocity X: \(CGFloat(Int(recognizer.velocity(in: view).x * 100)) / 100), Y: \(CGFloat(Int(recognizer.velocity(in: view).y * 100)) / 100) \n Relative Velocity X: \(CGFloat(Int(velocity.dx * 100)) / 100), Y: \(CGFloat(Int(velocity.dy * 100)) / 100)"
             debug("Pan Velocity: \(recognizer.velocity(in: view))")
-            return
         case .ended, .cancelled:
+            removeDot()
             
             //Create Relative Velocity Vector
             let velocity = CGVector(
@@ -86,7 +111,6 @@ class ViewController: UIViewController {
             animator.startAnimation()
             
             debug("Relative Velocity: \(velocity)")
-            return
         default:
             return
         }

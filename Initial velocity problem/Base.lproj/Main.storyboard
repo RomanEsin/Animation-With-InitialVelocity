@@ -37,19 +37,29 @@
                                     <action selector="response:" destination="BYZ-38-t0r" eventType="valueChanged" id="gfM-7X-sMN"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZJ-ym-ljr">
+                                <rect key="frame" x="16" y="679" width="343" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="b0D-jT-Cyh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1iZ-cF-4iP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RQa-oC-KG6" secondAttribute="trailing" constant="16" id="Aii-87-qkf"/>
+                            <constraint firstItem="RQa-oC-KG6" firstAttribute="top" secondItem="DZJ-ym-ljr" secondAttribute="bottom" constant="8" id="BAy-7O-ZMm"/>
                             <constraint firstItem="RQa-oC-KG6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Gxl-f0-pWW"/>
                             <constraint firstItem="Rcz-rD-ujg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MZt-sH-5yN"/>
                             <constraint firstItem="RQa-oC-KG6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="OHR-PI-xcY"/>
+                            <constraint firstItem="DZJ-ym-ljr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="PKa-hN-80O"/>
                             <constraint firstItem="b0D-jT-Cyh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TLx-8l-W27"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DZJ-ym-ljr" secondAttribute="trailing" constant="16" id="Wfj-gX-h05"/>
                             <constraint firstItem="Rcz-rD-ujg" firstAttribute="top" secondItem="RQa-oC-KG6" secondAttribute="bottom" constant="7" id="X2d-Xz-8go"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Rcz-rD-ujg" secondAttribute="bottom" constant="24" id="cZW-ke-yyH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rcz-rD-ujg" secondAttribute="trailing" constant="16" id="nb8-eq-Tew"/>
                             <constraint firstItem="Rcz-rD-ujg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="vLg-w5-I0L"/>
+                            <constraint firstItem="DZJ-ym-ljr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="x1l-UJ-1re"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -57,6 +67,7 @@
                         <outlet property="dampingSlider" destination="Rcz-rD-ujg" id="y1P-Uf-1Hi"/>
                         <outlet property="main" destination="b0D-jT-Cyh" id="fmf-6l-9KN"/>
                         <outlet property="responseSlider" destination="RQa-oC-KG6" id="7i9-FO-1v3"/>
+                        <outlet property="velocityLabel" destination="DZJ-ym-ljr" id="35s-GW-3ct"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
