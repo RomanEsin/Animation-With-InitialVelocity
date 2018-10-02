@@ -71,11 +71,14 @@ class ViewController: UIViewController {
         switch recognizer.state {
         case .began:
             removeDot()
+//            animator = UIViewPropertyAnimator()
+            
             //Create Dot
             dotView = UIView(frame: CGRect(x: recognizer.location(in: view).x, y: recognizer.location(in: view).y, width: 20, height: 20))
             dotView.frame.origin = CGPoint(x: dotView.frame.origin.x - dotView.frame.width / 2, y: dotView.frame.origin.y - dotView.frame.height / 2)
             dotView.backgroundColor = .black
             dotView.layer.cornerRadius = dotView.frame.height / 2
+            
             //Add Tag To Register It
             dotView.tag = 9
             view.addSubview(dotView)
