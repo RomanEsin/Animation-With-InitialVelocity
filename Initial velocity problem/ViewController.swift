@@ -50,10 +50,12 @@ class ViewController: UIViewController {
         isDebuggingEnabled = true
         
         main.layer.cornerRadius = 20
+        startOrigin = main.frame.origin
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
         main.addGestureRecognizer(panGesture)
         
+        velocityLabel.isHidden = true
     }
     
     var dotView = UIView()
@@ -64,40 +66,22 @@ class ViewController: UIViewController {
     }
     
     //MARK: - Pan Handler
+    var startOrigin = CGPoint()
+    var initialOffset = CGPoint.zero
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: view)
+        let location = recognizer.location(in: view)
         
         switch recognizer.state {
         case .began:
-            removeDot()
-//            animator = UIViewPropertyAnimator()
+            initialOffset = CGPoint(x: location.x - main.center.x, y: location.y - main.center.y)
             
-            //Create Dot
-            dotView = UIView(frame: CGRect(x: recognizer.location(in: view).x, y: recognizer.location(in: view).y, width: 20, height: 20))
-            dotView.frame.origin = CGPoint(x: dotView.frame.origin.x - dotView.frame.width / 2, y: dotView.frame.origin.y - dotView.frame.height / 2)
-            dotView.backgroundColor = .black
-            dotView.layer.cornerRadius = dotView.frame.height / 2
-            
-            //Add Tag To Register It
-            dotView.tag = 9
-            view.addSubview(dotView)
-            return
         case .changed:
-            //Add Dot To Touch Location
-            dotView.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
-            //Change View's Transform
-            main.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+            //Change View's Position
+            main.center = CGPoint(x: location.x - initialOffset.x, y: location.y - initialOffset.y)
             
-            let velocity = CGVector(
-                dx: relativeVelocity(forVelocity: recognizer.velocity(in: view).x, from: translation.x, to: 0),
-                dy: relativeVelocity(forVelocity: recognizer.velocity(in: view).y, from: translation.y, to: 0)
-            )
-            velocityLabel.text = "Velocity X: \(CGFloat(Int(recognizer.velocity(in: view).x * 100)) / 100), Y: \(CGFloat(Int(recognizer.velocity(in: view).y * 100)) / 100) \n Relative Velocity X: \(CGFloat(Int(velocity.dx * 100)) / 100), Y: \(CGFloat(Int(velocity.dy * 100)) / 100)"
-            debug("Pan Velocity: \(recognizer.velocity(in: view))")
         case .ended, .cancelled:
-            removeDot()
-            
             //Create Relative Velocity Vector
             let velocity = CGVector(
                 dx: relativeVelocity(forVelocity: recognizer.velocity(in: view).x, from: translation.x, to: 0),
@@ -108,7 +92,7 @@ class ViewController: UIViewController {
             
             animator = UIViewPropertyAnimator(duration: 0, timingParameters: springParameters)
             animator.addAnimations {
-                self.main.transform = .identity
+                self.main.frame.origin = self.startOrigin
             }
             
             animator.startAnimation()
