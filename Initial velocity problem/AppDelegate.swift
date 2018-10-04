@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Initial velocity problem
 //
-//  Created by Юрий Есин on 29.09.2018.
+//  Created by Roman Esin on 29.09.2018.
 //  Copyright © 2018 Roman Esin. All rights reserved.
 //
 

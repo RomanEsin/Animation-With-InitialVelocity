@@ -2,20 +2,13 @@
 //  ViewController.swift
 //  Initial velocity problem
 //
-//  Created by Юрий Есин on 29.09.2018.
+//  Created by Roman Esin on 29.09.2018.
 //  Copyright © 2018 Roman Esin. All rights reserved.
 //
 
 import UIKit
 
 extension UISpringTimingParameters {
-    
-    /// A design-friendly way to create a spring timing curve.
-    ///
-    /// - Parameters:
-    ///   - damping: The 'bounciness' of the animation. Value must be between 0 and 1.
-    ///   - response: The 'speed' of the animation.
-    ///   - initialVelocity: The vector describing the starting motion of the property. Optional, default is `.zero`.
     public convenience init(damping: CGFloat, response: CGFloat, initialVelocity: CGVector = .zero) {
         let stiffness = pow(2 * .pi / response, 2)
         let damp = 4 * .pi * damping / response
@@ -47,7 +40,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
         //Turn On Debugging
-        isDebuggingEnabled = true
+        isDebuggingEnabled = false
         
         main.layer.cornerRadius = 20
         startOrigin = main.frame.origin
@@ -58,16 +51,10 @@ class ViewController: UIViewController {
         velocityLabel.isHidden = true
     }
     
-    var dotView = UIView()
-    func removeDot() {
-        for subview in view.subviews {
-            if subview.tag == 9 { subview.removeFromSuperview() }
-        }
-    }
-    
-    //MARK: - Pan Handler
+    //MARK: - Pan Handler And Additional Variables
     var startOrigin = CGPoint()
     var initialOffset = CGPoint.zero
+    
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: view)
@@ -94,7 +81,6 @@ class ViewController: UIViewController {
             animator.addAnimations {
                 self.main.frame.origin = self.startOrigin
             }
-            
             animator.startAnimation()
             
             debug("Relative Velocity: \(velocity)")

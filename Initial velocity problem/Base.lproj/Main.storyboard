@@ -25,13 +25,13 @@
                                     <constraint firstAttribute="width" constant="100" id="zfR-9b-UQP"/>
                                 </constraints>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.10000000000000001" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rcz-rD-ujg">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.10000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rcz-rD-ujg">
                                 <rect key="frame" x="14" y="723" width="347" height="31"/>
                                 <connections>
                                     <action selector="damping:" destination="BYZ-38-t0r" eventType="valueChanged" id="lEZ-YQ-yyh"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.10000000000000001" maxValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="RQa-oC-KG6">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.10000000000000001" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="RQa-oC-KG6">
                                 <rect key="frame" x="14" y="685" width="347" height="31"/>
                                 <connections>
                                     <action selector="response:" destination="BYZ-38-t0r" eventType="valueChanged" id="gfM-7X-sMN"/>
