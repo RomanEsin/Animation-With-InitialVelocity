@@ -38,8 +38,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view, typically from a nib.
-        //Turn On Debugging
+        //Turn On/Off Debugging
         isDebuggingEnabled = false
         
         main.layer.cornerRadius = 20
@@ -56,14 +55,13 @@ class ViewController: UIViewController {
     var initialOffset = CGPoint.zero
     
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
-        
         let translation = recognizer.translation(in: view)
         let location = recognizer.location(in: view)
         
         switch recognizer.state {
         case .began:
             initialOffset = CGPoint(x: location.x - main.center.x, y: location.y - main.center.y)
-            
+    
         case .changed:
             //Change View's Position
             main.center = CGPoint(x: location.x - initialOffset.x, y: location.y - initialOffset.y)
@@ -75,17 +73,14 @@ class ViewController: UIViewController {
                 dy: relativeVelocity(forVelocity: recognizer.velocity(in: view).y, from: translation.y, to: 0)
             )
             
+            //Create Spring With Initial Velocity
             let springParameters = UISpringTimingParameters(damping: CGFloat(dampingSlider!.value), response: CGFloat(responseSlider!.value), initialVelocity: velocity)
             
+            //Create Animator
             animator = UIViewPropertyAnimator(duration: 0, timingParameters: springParameters)
-            animator.addAnimations {
-                self.main.frame.origin = self.startOrigin
-            }
+            animator.addAnimations { self.main.frame.origin = self.startOrigin }
             animator.startAnimation()
-            
-            debug("Relative Velocity: \(velocity)")
-        default:
-            return
+        default: return
         }
     }
     
