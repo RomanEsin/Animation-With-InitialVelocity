@@ -14,13 +14,12 @@ extension UISpringTimingParameters {
         let damp = 4 * .pi * damping / response
         self.init(mass: 1, stiffness: stiffness, damping: damp, initialVelocity: initialVelocity)
     }
-    
 }
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var main: UIView!
-    var animator = UIViewPropertyAnimator()
+    var animator: UIViewPropertyAnimator? = UIViewPropertyAnimator()
     
     @IBOutlet weak var responseSlider: UISlider!
     @IBOutlet weak var dampingSlider: UISlider!
@@ -41,7 +40,8 @@ class ViewController: UIViewController {
         //Turn On/Off Debugging
         isDebuggingEnabled = false
         
-        main.layer.cornerRadius = 20
+        main.roundCorners(20)
+        main.makeGradientWithColors([UIColor.red.cgColor, UIColor.orange.cgColor])
         startOrigin = main.frame.origin
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
@@ -61,6 +61,7 @@ class ViewController: UIViewController {
         switch recognizer.state {
         case .began:
             initialOffset = CGPoint(x: location.x - main.center.x, y: location.y - main.center.y)
+            animator?.stopAnimation(true)
     
         case .changed:
             //Change View's Position
@@ -78,8 +79,9 @@ class ViewController: UIViewController {
             
             //Create Animator
             animator = UIViewPropertyAnimator(duration: 0, timingParameters: springParameters)
-            animator.addAnimations { self.main.frame.origin = self.startOrigin }
-            animator.startAnimation()
+            animator!.isInterruptible = true
+            animator!.addAnimations { self.main.frame.origin = self.startOrigin }
+            animator!.startAnimation()
         default: return
         }
     }
